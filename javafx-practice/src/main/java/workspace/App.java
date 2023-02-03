@@ -22,7 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/F:/Programming/GitHub Repositories/JavaFX-Practice/javafx-practice/src/main/resources/workspace/welcomeScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/welcomeScreen.fxml"));;
             
             scene = new Scene(root);
             
