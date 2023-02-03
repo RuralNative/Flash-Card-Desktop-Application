@@ -24,7 +24,7 @@ public class App extends Application {
         scene = new Scene(root,Color.RED);
         
         stage.setTitle("JavaFX Practice");
-        Image icon = new Image("favicon.png");
+        Image icon = new Image(getClass().getResourceAsStream("favicon.png")); //Refer to Notes Line 4 - 6 
         stage.getIcons().add(icon);
         
         stage.setScene(scene);
