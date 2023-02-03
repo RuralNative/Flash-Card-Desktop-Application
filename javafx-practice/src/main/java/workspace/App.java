@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -20,15 +21,20 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Group root = new Group();
-        scene = new Scene(root,Color.RED);
-        
-        stage.setTitle("JavaFX Practice");
-        Image icon = new Image(getClass().getResourceAsStream("favicon.png")); //Refer to Notes Line 4 - 6 
-        stage.getIcons().add(icon);
-        
-        stage.setScene(scene);
-        stage.show();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/F:/Programming/GitHub Repositories/JavaFX-Practice/javafx-practice/src/main/resources/workspace/welcomeScreen.fxml"));
+            
+            scene = new Scene(root);
+            
+            stage.setTitle("JavaFX Practice");
+            Image icon = new Image(getClass().getResourceAsStream("favicon.png")); //Refer to Notes Line 4 - 6 
+            stage.getIcons().add(icon);
+            
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public static void main(String[] args) {
         launch();
