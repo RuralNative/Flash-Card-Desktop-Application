@@ -18,14 +18,14 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    static Parent root;
+    static Parent sceneRoot;
 
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/welcomeScreen.fxml"));
+            sceneRoot = FXMLLoader.load(getClass().getResource("/fxml/welcomeScreen.fxml"));
             
-            scene = new Scene(root);
+            scene = new Scene(sceneRoot);
             
             stage.setTitle("JavaFX Practice");
             Image icon = new Image(getClass().getResourceAsStream("favicon.png")); //Refer to Notes Line 4 - 6 
@@ -38,12 +38,14 @@ public class App extends Application {
         }
     }
 
-     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    //Refer to Notes
+    static void setRootForScene(String fxmlFile) throws IOException {
+        scene.setRoot(loadFXML(fxmlFile));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/"+ fxml + ".fxml"));
+    //Refer to Notes
+    private static Parent loadFXML(String fxmlFile) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/"+ fxmlFile + ".fxml"));
         return fxmlLoader.load();
     }
 
