@@ -18,11 +18,12 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    static Parent root;
 
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/welcomeScreen.fxml"));;
+            root = FXMLLoader.load(getClass().getResource("/fxml/welcomeScreen.fxml"));
             
             scene = new Scene(root);
             
@@ -36,8 +37,19 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
+
+     static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/"+ fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+
     public static void main(String[] args) {
         launch();
     }
+
 
 }
