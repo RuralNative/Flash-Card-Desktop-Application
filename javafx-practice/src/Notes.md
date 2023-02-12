@@ -8,3 +8,13 @@
     Set the root node for the Scene of the Stage through the use of the loadFXML() method 
 **LOADFXML() METHOD**
     Instantiates an FXMLLoader object which loads the FXML file in the resource package of the project. This is done by passing a String parameter - String combination that equates to the FXML path with the method's parameter as name of the file - to the FXMLLoader constructor, which subsequently returns a Parent object to load.
+
+**STEPS TO CONNECT DATABASE**
+    - Import the necessary packages for the JDBC which ensures the packages are readily available for the API
+    - Load and register the driver since the imported drivers need to be loaded and registered for establishing a connection between application and database
+    - Connect the database through the use of getConnection() method
+    - Write a query that could then be executed
+    - Execute the query from the API using executeQuery()
+    - Process result
+    - Closing statement
+    - Close connections

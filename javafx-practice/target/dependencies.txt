@@ -1,0 +1,10 @@
+digraph "workspace:javafx-practice:jar:1.0-SNAPSHOT" { 
+	"workspace:javafx-practice:jar:1.0-SNAPSHOT" -> "org.openjfx:javafx-controls:jar:13:compile" ; 
+	"workspace:javafx-practice:jar:1.0-SNAPSHOT" -> "org.openjfx:javafx-fxml:jar:13:compile" ; 
+	"org.openjfx:javafx-controls:jar:13:compile" -> "org.openjfx:javafx-controls:jar:win:13:compile" ; 
+	"org.openjfx:javafx-controls:jar:13:compile" -> "org.openjfx:javafx-graphics:jar:13:compile" ; 
+	"org.openjfx:javafx-graphics:jar:13:compile" -> "org.openjfx:javafx-graphics:jar:win:13:compile" ; 
+	"org.openjfx:javafx-graphics:jar:13:compile" -> "org.openjfx:javafx-base:jar:13:compile" ; 
+	"org.openjfx:javafx-base:jar:13:compile" -> "org.openjfx:javafx-base:jar:win:13:compile" ; 
+	"org.openjfx:javafx-fxml:jar:13:compile" -> "org.openjfx:javafx-fxml:jar:win:13:compile" ; 
+ } 

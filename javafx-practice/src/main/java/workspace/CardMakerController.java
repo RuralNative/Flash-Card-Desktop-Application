@@ -21,10 +21,9 @@ public class CardMakerController {
     }
 
     private void saveCard() {
-        //TODO: Check if both Question and Answer meets minimum/maximum content; if true then parse question and answer, then save into database; else show a dialog telling user to check inputs
         if (checkIfQuestionAndAnswerMeetsConditions() ==  true) {
             saveDataToDatabase();
-        } else {}
+        } else {};
     }
 
     private String parseQuestion() {
