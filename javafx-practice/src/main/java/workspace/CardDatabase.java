@@ -12,7 +12,7 @@ public class CardDatabase {
     private static Statement selectStatement;
     private static String insertQuestionAndAnswerQuery = "INSERT INTO flashcardtable (question, answer) VALUES (?, ?)";
 
-    public static void insertQuestionAndAnswer(String parsedQuestion, String parsedAnswer) {
+    public void insertQuestionAndAnswer(String parsedQuestion, String parsedAnswer) {
         setUpDriver();
         setUpConnection();
         prepareInsertionStatement(parsedQuestion, parsedAnswer);
@@ -25,7 +25,7 @@ public class CardDatabase {
         }
     }
 
-    public static String selectQuestion(int questionID) {
+    public String selectQuestion(int questionID) {
         String question = null;
         String selectQuestionQuery = "SELECT question FROM flashcardtable WHERE ID = ID";
         setUpDriver();
@@ -42,7 +42,7 @@ public class CardDatabase {
         return question;
     }
 
-    public static String selectAnswer(int questionID) {
+    public String selectAnswer(int questionID) {
         String answer = null;
         String selectAnswerQuery = "SELECT answer FROM flashcardtable WHERE ID = ID";
         setUpDriver();
@@ -59,7 +59,7 @@ public class CardDatabase {
         return answer;
     }
 
-    private static void setUpDriver() {
+    private void setUpDriver() {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
@@ -69,7 +69,7 @@ public class CardDatabase {
         }
     }
 
-    private static void setUpConnection() {
+    private void setUpConnection() {
         try {
             databaseConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class CardDatabase {
         }  
     }
     
-    private static void prepareInsertionStatement(String question, String answer) {
+    private void prepareInsertionStatement(String question, String answer) {
         try {
             preparedInsertStatement = databaseConnection.prepareStatement(insertQuestionAndAnswerQuery);
             preparedInsertStatement.setString(1, question);

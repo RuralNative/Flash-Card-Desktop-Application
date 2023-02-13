@@ -4,88 +4,30 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class CardMakerController {
 
+    private CardDatabase database = new CardDatabase();
+
     @FXML
+    private TextField questionContainer;
 
-    TextField questionContainer = new TextField();
-    TextArea answerContainer = new TextArea();
-    Button saveButton = new Button();
+    @FXML
+    private TextArea answerContainer;
 
-    private void changeViewToDefaultScreen(ActionEvent e) throws IOException {
+    @FXML
+    public void changeViewToDefaultScreen(ActionEvent e) throws IOException {
         App.setRootForScene("welcomeScreen");
     }
 
-    private void saveCard() {
-        if (checkIfQuestionAndAnswerMeetsConditions() ==  true) {
-            saveDataToDatabase();
-        } else {};
-    }
-
-    private String parseQuestion() {
+    @FXML
+    public void saveCard(ActionEvent e) {
         String cardQuestion = questionContainer.getText();
-        return cardQuestion;
-    }
-
-    private String parseAnswer() {
         String cardAnswer = answerContainer.getText();
-        return cardAnswer;
+        System.out.println("cardQuestion" + cardAnswer);
+        database.insertQuestionAndAnswer(cardQuestion, cardAnswer);
     }
-
-    private boolean checkIfQuestionAndAnswerMeetsConditions() {
-        boolean checkResult = false;
-        if (checkIfQuestionAndAnswerHasValue() == true) {
-            if (checkIfQuestionAndAnswerMeetsLimit(5, 250) == true) {
-               checkResult = true;
-            } else {
-                checkResult = false;
-            }
-        } else {
-            checkResult = false;
-        }
-        return checkResult;
-    }
-    
-    private boolean checkIfQuestionAndAnswerHasValue() {
-        boolean checkResult = false;
-        if (parseQuestion() == null || parseAnswer() == null) {
-            showDialogForQuestionAndAnswerBeingNull();
-        } else {
-            checkResult = true;
-        }
-        return checkResult;
-    }
-
-    private boolean checkIfQuestionAndAnswerMeetsLimit(int minChars, int maxChars) {
-        int questionTextCount = parseQuestion().length();
-        int answerTextCount = parseAnswer().length();
-        boolean checkResult = false;
-        if (questionTextCount < minChars || questionTextCount > maxChars) {
-            showDialogForQuestionAndAnswerReachingLimit();
-        } else if (answerTextCount < minChars || answerTextCount > maxChars) {
-            showDialogForQuestionAndAnswerReachingLimit();
-        } else {
-            checkResult = true;
-        } 
-        return checkResult;
-    }
-
-    private void saveDataToDatabase() {
-        //TODO: Save question and answer to a database
-    }
-
-    private void showDialogForQuestionAndAnswerBeingNull() {
-        //TODO: Show a dialog scene showing message for user to review content 
-    }
-
-    private void showDialogForQuestionAndAnswerReachingLimit() {
-        //TODO: Show a dialog scene showing message for user to review content 
-    }
-
-
 }
 
