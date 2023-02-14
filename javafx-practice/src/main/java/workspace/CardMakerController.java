@@ -26,12 +26,12 @@ public class CardMakerController {
     public void saveCard(ActionEvent e) {
         String cardQuestion = questionContainer.getText();
         String cardAnswer = answerContainer.getText();
-        if (isQuestionConditionsMet() == true || isAnswerConditionsMet() == true) {
+        if (isQuestionConditionsMet() == false || isAnswerConditionsMet() == false) {
+            System.out.println("DATA UNSUCCESSFULLY SAVED");
+        } else {
             database.insertQuestionAndAnswer(cardQuestion, cardAnswer);
             questionContainer.setText("");
             answerContainer.setText("");
-        } else {
-            System.out.println("DATA UNSUCCESSFULLY SAVED");
         }
         
     }
@@ -40,7 +40,7 @@ public class CardMakerController {
         int questionLength = questionContainer.getText().length();
         boolean conditionsMet;
         if (questionLength >= 5 && questionLength <= 255) {
-            conditionsMet = false;
+            conditionsMet = true;
         } else {
             System.out.println("CONDITIONS FOR QUESTION ARE NOT MET");
             conditionsMet = false;
@@ -52,7 +52,7 @@ public class CardMakerController {
         int answerLength = answerContainer.getText().length();
         boolean conditionsMet;
         if (answerLength >= 5 && answerLength <= 255) {
-            conditionsMet = false;
+            conditionsMet = true;
         } else {
             System.out.println("CONDITIONS FOR ANSWER ARE NOT MET");
             conditionsMet = false;
