@@ -61,7 +61,7 @@ public class CardDatabase {
             selectStatement = databaseConnection.createStatement();
             ResultSet selectResult = selectStatement.executeQuery(selectAnswerQuery);
             while (selectResult.next()) {
-                answer = selectResult.getString("question");
+                answer = selectResult.getString("answer");
             }
         } catch (SQLException e) {
             e.printStackTrace();
