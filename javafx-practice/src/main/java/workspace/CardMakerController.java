@@ -49,6 +49,7 @@ public class CardMakerController {
         alert.showAndWait();
     }
 
+    @FXML
     private void dataSavedDialog() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("NOTE");
