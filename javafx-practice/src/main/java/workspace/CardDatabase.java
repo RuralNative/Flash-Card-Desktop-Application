@@ -1,6 +1,7 @@
 package workspace;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class CardDatabase {
     private static Connection databaseConnection = null;
@@ -12,17 +13,21 @@ public class CardDatabase {
     private static Statement selectStatement;
     private static String insertQuestionAndAnswerQuery = "INSERT INTO flashcardtable (question, answer) VALUES (?, ?)";
 
-    public void insertQuestionAndAnswer(String parsedQuestion, String parsedAnswer) {
+    public ArrayList<Integer> selectID() {
+        ArrayList<Integer> indexList = new ArrayList<Integer>();
+        String selectQuestionQuery = "SELECT ID FROM flashcardtable";
         setUpDriver();
         setUpConnection();
-        prepareInsertionStatement(parsedQuestion, parsedAnswer);
         try {
-            preparedInsertStatement.executeUpdate();
-            System.out.println("DATA SUCCESSFULLY SAVED");
+            selectStatement = databaseConnection.createStatement();
+            ResultSet selectResult = selectStatement.executeQuery(selectQuestionQuery);
+            while (selectResult.next()) {
+                indexList.add(selectResult.getInt("ID"));
+            }
         } catch (SQLException e) {
-            System.out.println("DATA UNSUCCESSFULLY SAVED");
             e.printStackTrace();
         }
+        return indexList;
     }
 
     public String selectQuestion(int questionID) {
@@ -58,6 +63,20 @@ public class CardDatabase {
         }
         return answer;
     }
+    
+    public void insertQuestionAndAnswer(String parsedQuestion, String parsedAnswer) {
+        setUpDriver();
+        setUpConnection();
+        prepareInsertionStatement(parsedQuestion, parsedAnswer);
+        try {
+            preparedInsertStatement.executeUpdate();
+            System.out.println("DATA SUCCESSFULLY SAVED");
+        } catch (SQLException e) {
+            System.out.println("DATA UNSUCCESSFULLY SAVED");
+            e.printStackTrace();
+        }
+    }
+
 
     private void setUpDriver() {
         try {
