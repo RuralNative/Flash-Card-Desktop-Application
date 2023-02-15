@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -28,13 +30,34 @@ public class CardMakerController {
         String cardAnswer = answerContainer.getText();
         if (isQuestionConditionsMet() == false || isAnswerConditionsMet() == false) {
             System.out.println("DATA UNSUCCESSFULLY SAVED");
+            conditionsUnmetDialog();
         } else {
             database.insertQuestionAndAnswer(cardQuestion, cardAnswer);
             questionContainer.setText("");
             answerContainer.setText("");
+            dataSavedDialog();
         }
-        
     }
+
+    @FXML
+    private void conditionsUnmetDialog() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("WARNING");
+        alert.setHeaderText("CHECK QUESTION AND ANSWER FOR CONTENT");
+        alert.setContentText("Please check if either or both of your question and answer have text content, or if both follow the minimum and maximum count of characters shown in the prompt text.");
+        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        alert.showAndWait();
+    }
+
+    private void dataSavedDialog() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("NOTE");
+        alert.setHeaderText("DATA SUCCESSFULLY SAVED");
+        alert.setContentText("Your question and answer are successfully saved");
+        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        alert.showAndWait();
+    }
+
 
     private boolean isQuestionConditionsMet() {
         int questionLength = questionContainer.getText().length();
@@ -60,7 +83,7 @@ public class CardMakerController {
         return conditionsMet;
     }
 
-    //TODO: Make sure answer container is wrapped
-    //TODO: Check if the content of container meets condition such as minimum characters and maximum characters, all containers must have content, before save is successfully ran
+    //TODO: Show dialog if conditions are not met
+    
 }
 
