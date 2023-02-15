@@ -30,19 +30,24 @@ public class CardDatabase {
         return indexList;
     }
 
-    public String selectQuestion(int questionID) {
+    public String selectQuestion(int questionID) throws SQLException{
         String question = null;
         String selectQuestionQuery = "SELECT question FROM flashcardtable WHERE ID = ID";
+        ResultSet selectResult = null;
         setUpDriver();
         setUpConnection();
         try {
             selectStatement = databaseConnection.createStatement();
-            ResultSet selectResult = selectStatement.executeQuery(selectQuestionQuery);
+            selectResult = selectStatement.executeQuery(selectQuestionQuery);
             while (selectResult.next()) {
                 question = selectResult.getString("question");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            selectResult.close();
+            selectStatement.close();
+            databaseConnection.close();
         }
         return question;
     }

@@ -1,6 +1,7 @@
 package workspace;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -14,7 +15,7 @@ public class CardReaderController {
     private ArrayList<Integer> indexList = database.selectID();
     
     private int index = 0;
-    private int lastID = indexList.get(indexList.size());
+    private int lastID = indexList.get(indexList.size()-1);
     private int firstID = indexList.get(0);
     private int currentID = indexList.get(index);
     
@@ -56,7 +57,12 @@ public class CardReaderController {
     }
 
     public void showQuestion(int ID) throws IOException {
-        String questionString = database.selectQuestion(currentID);
+        String questionString = null;
+        try {
+            questionString = database.selectQuestion(currentID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         questionContainer.setText(questionString);
     }
 }
