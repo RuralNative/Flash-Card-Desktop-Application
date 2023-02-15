@@ -47,22 +47,22 @@
             <Insets bottom="12.0" />
          </GridPane.margin>
       </Label>
-      <TextField prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <TextArea prefHeight="70.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <TextField fx:id="questionContainer" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <TextArea fx:id="answerContainer" prefHeight="70.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2" />
       <DialogPane style="-fx-background-color: KHAKI;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <buttons>
-            <Button mnemonicParsing="false" style="-fx-background-color: orange;" text="&lt;--">
+            <Button mnemonicParsing="false" onAction="#moveToLastQuestion" style="-fx-background-color: orange;" text="&lt;--">
                <font>
                   <Font name="Cascadia Code Regular" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" style="-fx-background-color: orange;" text="Show">
+            <Button mnemonicParsing="false" onAction="#showAnswer" style="-fx-background-color: orange;" text="Show">
                <font>
                   <Font name="Cascadia Code Regular" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" style="-fx-background-color: orange;" text="--&gt;">
+            <Button mnemonicParsing="false" onAction="#moveToNextQuestion" style="-fx-background-color: orange;" text="--&gt;">
                <font>
                   <Font name="Cascadia Code Regular" size="12.0" />
                </font>

@@ -5,38 +5,59 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class CardReaderController {
 
     private CardDatabase database = new CardDatabase();
     private ArrayList<Integer> indexList = database.selectID();
+    
+    private int index = 0;
+    private int lastID = indexList.get(indexList.size());
+    private int firstID = indexList.get(0);
+    private int currentID = indexList.get(index);
+    
+
+    private TextField questionContainer = new TextField();
+    private TextArea answerContainer = new TextArea();
 
     @FXML
     public void changeViewToDefaultScreen(ActionEvent e) throws IOException {
         App.setRootForScene("welcomeScreen");
     }
 
-    //TODO: Function for the show button; showing the answer for the specific question by means of identifying the index first then showing the question to that row
     @FXML
     public void showAnswer(ActionEvent e) throws IOException {
-
+        String answerString = database.selectAnswer(currentID);
+        answerContainer.setText(answerString);
     }
 
-    //TODO: Implement function that moves to next question by index in the table and show the appropriate the question based on that. Also make sure that by the time the index is at the last available index in the table and the question is moved, the index would move to the very first index (1)
     @FXML
-    public void moveToNextQuestion(ActionEvent e) {
-
+    public void moveToNextQuestion(ActionEvent e) throws IOException {
+        if (currentID == lastID) {
+            index = 0;
+            showQuestion(currentID);
+        } else {
+            ++index;
+            showQuestion(currentID);
+        }
     }
 
-    //TODO: Implement function that moves to last question by index in the table and show the appropriate the question based on that. Also make sure that by the time the index is at the first index in the table and the question is moved, the index would move to the very last index
     @FXML 
-    public void moveToLastQuestion(ActionEvent e) {
-
+    public void moveToLastQuestion(ActionEvent e) throws IOException {
+        if (currentID == firstID) {
+            index = lastID;
+            showQuestion(currentID);
+        } else {
+            --index;
+            showQuestion(currentID);
+        }
     }
 
-    //TODO: Implement the reusable question to show the question depending on the index of the row taken from the parameter
-    public void showQuestion(int ID) {
-        setText
+    public void showQuestion(int ID) throws IOException {
+        String questionString = database.selectQuestion(currentID);
+        questionContainer.setText(questionString);
     }
 }
 
