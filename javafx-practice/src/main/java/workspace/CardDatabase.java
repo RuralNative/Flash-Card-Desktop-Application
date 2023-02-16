@@ -52,23 +52,26 @@ public class CardDatabase {
     }
 
     public String selectAnswer(int answerID) throws SQLException {
-        String answer = "Hello";
-        String selectAnswerQuery = "SELECT answer FROM flashcardtable WHERE ID = 'answerID'";
+        String answer = null;
+        String query = "SELECT answer FROM flashcardtable WHERE ID = ?";
+        PreparedStatement preparedStatement = null;
         ResultSet selectResult = null;
-        setUpDriver();
-        setUpConnection();
-        try {
-            selectStatement = databaseConnection.createStatement();
-            selectResult = selectStatement.executeQuery(selectAnswerQuery);
+        try {    
+            setUpDriver();
+            setUpConnection();
+            preparedStatement = databaseConnection.prepareStatement(query);
+            preparedStatement.setInt(1, answerID);
+            selectResult = preparedStatement.executeQuery();;
             while (selectResult.next()) {
-                answer = selectResult.getString("answer");
+                answer = selectResult.getString("answer");      
             }
+            selectResult.close();
+            preparedStatement.close();
+            databaseConnection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            selectStatement.close();
-            databaseConnection.close();
         }
+        System.out.println(answer);
         return answer;
     }
     
