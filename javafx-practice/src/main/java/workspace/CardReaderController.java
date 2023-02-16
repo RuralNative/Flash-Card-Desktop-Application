@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 public class CardReaderController {
 
     private CardDatabase database = new CardDatabase();
-    private ArrayList<Integer> indexList = database.selectID(); //successful
+    private ArrayList<Integer> indexList = database.selectID();
     
     private int index = 0;
     private int lastID = indexList.get(indexList.size()-1);
@@ -29,7 +29,7 @@ public class CardReaderController {
     }
 
     @FXML
-    public void showAnswer(ActionEvent e) throws IOException {
+    public void showAnswer(ActionEvent e) throws IOException, SQLException {
         currentID = indexList.get(this.index); //Changes currentID value to current index value
         String answerString = database.selectAnswer(currentID);
         answerContainer.setText(answerString);
@@ -67,7 +67,6 @@ public class CardReaderController {
             e.printStackTrace();
         }
         questionContainer.setText(questionString);
-        System.out.println("showQuestion() ran");
     }
 }
 

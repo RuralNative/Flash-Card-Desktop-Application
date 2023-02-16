@@ -32,7 +32,7 @@ public class CardDatabase {
 
     public String selectQuestion(int questionID) throws SQLException{
         String question = null;
-        String selectQuestionQuery = "SELECT question FROM flashcardtable WHERE ID = ID";
+        String selectQuestionQuery = "SELECT question FROM flashcardtable WHERE ID = 'questionID'";
         ResultSet selectResult = null;
         setUpDriver();
         setUpConnection();
@@ -45,26 +45,29 @@ public class CardDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            selectResult.close();
             selectStatement.close();
             databaseConnection.close();
         }
         return question;
     }
 
-    public String selectAnswer(int questionID) {
-        String answer = null;
-        String selectAnswerQuery = "SELECT answer FROM flashcardtable WHERE ID = ID";
+    public String selectAnswer(int answerID) throws SQLException {
+        String answer = "Hello";
+        String selectAnswerQuery = "SELECT answer FROM flashcardtable WHERE ID = 'answerID'";
+        ResultSet selectResult = null;
         setUpDriver();
         setUpConnection();
         try {
             selectStatement = databaseConnection.createStatement();
-            ResultSet selectResult = selectStatement.executeQuery(selectAnswerQuery);
+            selectResult = selectStatement.executeQuery(selectAnswerQuery);
             while (selectResult.next()) {
                 answer = selectResult.getString("answer");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            selectStatement.close();
+            databaseConnection.close();
         }
         return answer;
     }
