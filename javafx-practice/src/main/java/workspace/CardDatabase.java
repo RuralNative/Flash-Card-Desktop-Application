@@ -32,21 +32,23 @@ public class CardDatabase {
 
     public String selectQuestion(int questionID) throws SQLException{
         String question = null;
-        String selectQuestionQuery = "SELECT question FROM flashcardtable WHERE ID = 'questionID'";
+        String query = "SELECT question FROM flashcardtable WHERE ID = ?";
+        PreparedStatement preparedStatement = null;
         ResultSet selectResult = null;
-        setUpDriver();
-        setUpConnection();
-        try {
-            selectStatement = databaseConnection.createStatement();
-            selectResult = selectStatement.executeQuery(selectQuestionQuery);
+        try {    
+            setUpDriver();
+            setUpConnection();
+            preparedStatement = databaseConnection.prepareStatement(query);
+            preparedStatement.setInt(1, questionID);
+            selectResult = preparedStatement.executeQuery();;
             while (selectResult.next()) {
-                question = selectResult.getString("question");
+                question = selectResult.getString("question");      
             }
+            selectResult.close();
+            preparedStatement.close();
+            databaseConnection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            selectStatement.close();
-            databaseConnection.close();
         }
         return question;
     }
