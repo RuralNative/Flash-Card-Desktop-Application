@@ -64,7 +64,7 @@ public class CardReaderController {
     public void moveToLastQuestion(ActionEvent e) throws IOException, SQLException {
         currentID = indexList.get(this.index); //Changes currentID value to current index value
         if (currentID == firstID) {
-            index = lastID;
+            index = indexList.size()-1;
             showQuestion(currentID);
         } else {
             --index;
