@@ -24,11 +24,12 @@ public class App extends Application {
             
             scene = new Scene(sceneRoot);
             
-            stage.setTitle("JavaFX Practice");
+            stage.setTitle("Flashcards App");
             Image icon = new Image(getClass().getResourceAsStream("favicon.png")); //Refer to Notes Line 4 - 6 
             stage.getIcons().add(icon);
             
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

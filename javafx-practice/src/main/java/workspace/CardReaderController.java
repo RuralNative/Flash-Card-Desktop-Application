@@ -28,7 +28,18 @@ public class CardReaderController {
 
     @FXML
     public void changeViewToDefaultScreen(ActionEvent e) throws IOException {
-        App.setRootForScene("welcomeScreen");
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    try {
+                        App.setRootForScene("welcomeScreen");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 
     @FXML

@@ -2,6 +2,7 @@ package workspace;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,42 +22,75 @@ public class CardMakerController {
 
     @FXML
     public void changeViewToDefaultScreen(ActionEvent e) throws IOException {
-        App.setRootForScene("welcomeScreen");
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    try {
+                        App.setRootForScene("welcomeScreen");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 
     @FXML
     public void saveCard(ActionEvent e) {
         String cardQuestion = questionContainer.getText();
         String cardAnswer = answerContainer.getText();
-        if (isQuestionConditionsMet() == false || isAnswerConditionsMet() == false) {
-            System.out.println("DATA UNSUCCESSFULLY SAVED");
-            conditionsUnmetDialog();
-        } else {
-            database.insertQuestionAndAnswer(cardQuestion, cardAnswer);
-            questionContainer.setText("");
-            answerContainer.setText("");
-            dataSavedDialog();
-        }
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    if (isQuestionConditionsMet() == false || isAnswerConditionsMet() == false) {
+                        System.out.println("DATA UNSUCCESSFULLY SAVED");
+                        conditionsUnmetDialog();
+                    } else {
+                        database.insertQuestionAndAnswer(cardQuestion, cardAnswer);
+                        questionContainer.setText("");
+                        answerContainer.setText("");
+                        dataSavedDialog();
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 
     @FXML
     private void conditionsUnmetDialog() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("WARNING");
-        alert.setHeaderText("CHECK QUESTION AND ANSWER FOR CONTENT");
-        alert.setContentText("Please check if either or both of your question and answer have text content, or if both follow the minimum and maximum count of characters shown in the prompt text.");
-        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        alert.showAndWait();
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.setTitle("WARNING");
+                    alert.setHeaderText("CHECK QUESTION AND ANSWER FOR CONTENT");
+                    alert.setContentText("Please check if either or both of your question and answer have text content, or if both follow the minimum and maximum count of characters shown in the prompt text.");
+                    alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+                    alert.showAndWait();
+                });
+            }
+        };
+        thread.start();
     }
 
     @FXML
     private void dataSavedDialog() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("NOTE");
-        alert.setHeaderText("DATA SUCCESSFULLY SAVED");
-        alert.setContentText("Your question and answer are successfully saved");
-        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        alert.showAndWait();
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.setTitle("NOTE");
+                    alert.setHeaderText("DATA SUCCESSFULLY SAVED");
+                    alert.setContentText("Your question and answer are successfully saved");
+                    alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+                    alert.showAndWait();
+                });
+            }
+        };
+        thread.start();
+        
     }
 
 
