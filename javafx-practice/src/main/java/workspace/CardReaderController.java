@@ -44,14 +44,6 @@ public class CardReaderController {
             }
         };
         thread.start();
-        
-        /*
-        Thread setTextThread = new Thread(() -> { 
-            answerContainer.setText(answerString);
-            System.out.println(answerString);
-        });
-        setTextThread.start();
-         */
     }
 
     @FXML
@@ -63,19 +55,19 @@ public class CardReaderController {
         } else {
             ++index;
             showQuestion(currentID);
-        }
-        questionContainer.setText("");
+            questionContainer.setText("");
             answerContainer.setText("");
+        }
     }
 
     @FXML 
     public void moveToLastQuestion(ActionEvent e) throws IOException, SQLException {
         currentID = indexList.get(this.index); //Changes currentID value to current index value
         if (currentID == firstID) {
-            index = 0;
+            index = lastID;
             showQuestion(currentID);
         } else {
-            ++index;
+            --index;
             showQuestion(currentID);
             questionContainer.setText("");
             answerContainer.setText("");
@@ -87,7 +79,7 @@ public class CardReaderController {
         String questionString = database.selectQuestion(currentID);
         Thread thread = new Thread(){
             @Override public void run(){
-                Platform.runLater(() -> {
+                Platform.runLater(() -> {     
                     questionContainer.setText(questionString);
                     System.out.println(questionString);
                 });
