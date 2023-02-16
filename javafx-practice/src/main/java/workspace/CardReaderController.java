@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -19,9 +20,11 @@ public class CardReaderController {
     private int firstID = indexList.get(0);
     private int currentID = indexList.get(index);
     
+    @FXML
+    private TextArea answerContainer;
 
-    private TextField questionContainer = new TextField();
-    private TextArea answerContainer = new TextArea();
+    @FXML
+    private TextField questionContainer;
 
     @FXML
     public void changeViewToDefaultScreen(ActionEvent e) throws IOException {
@@ -32,11 +35,27 @@ public class CardReaderController {
     public void showAnswer(ActionEvent e) throws IOException, SQLException {
         currentID = indexList.get(this.index); //Changes currentID value to current index value
         String answerString = database.selectAnswer(currentID);
-        answerContainer.setText(answerString);
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    answerContainer.setText(answerString);
+                    System.out.println(answerString);
+                });
+            }
+        };
+        thread.start();
+        
+        /*
+        Thread setTextThread = new Thread(() -> { 
+            answerContainer.setText(answerString);
+            System.out.println(answerString);
+        });
+        setTextThread.start();
+         */
     }
 
     @FXML
-    public void moveToNextQuestion(ActionEvent e) throws IOException {
+    public void moveToNextQuestion(ActionEvent e) throws IOException, SQLException {
         currentID = indexList.get(this.index); //Changes currentID value to current index value
         if (currentID == lastID) {
             index = 0;
@@ -45,28 +64,35 @@ public class CardReaderController {
             ++index;
             showQuestion(currentID);
         }
+        questionContainer.setText("");
+            answerContainer.setText("");
     }
 
     @FXML 
-    public void moveToLastQuestion(ActionEvent e) throws IOException {
+    public void moveToLastQuestion(ActionEvent e) throws IOException, SQLException {
         currentID = indexList.get(this.index); //Changes currentID value to current index value
         if (currentID == firstID) {
-            index = lastID;
+            index = 0;
             showQuestion(currentID);
         } else {
-            --index;
+            ++index;
             showQuestion(currentID);
+            questionContainer.setText("");
+            answerContainer.setText("");
         }
     }
 
-    public void showQuestion(int ID) throws IOException {
-        String questionString = null;
-        try {
-            questionString = database.selectQuestion(currentID);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        questionContainer.setText(questionString);
+    public void showQuestion(int ID) throws IOException, SQLException {
+        currentID = indexList.get(this.index); //Changes currentID value to current index value
+        String questionString = database.selectQuestion(currentID);
+        Thread thread = new Thread(){
+            @Override public void run(){
+                Platform.runLater(() -> {
+                    questionContainer.setText(questionString);
+                    System.out.println(questionString);
+                });
+            }
+        };
+        thread.start();
     }
 }
-

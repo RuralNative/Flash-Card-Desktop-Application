@@ -47,8 +47,8 @@
             <Insets bottom="12.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="questionContainer" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <TextArea fx:id="answerContainer" prefHeight="70.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <TextField fx:id="questionContainer" editable="false" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <TextArea fx:id="answerContainer" editable="false" prefHeight="70.0" prefWidth="348.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2" />
       <DialogPane style="-fx-background-color: KHAKI;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <buttons>

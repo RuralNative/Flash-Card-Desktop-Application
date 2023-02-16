@@ -83,8 +83,5 @@ public class CardMakerController {
         }
         return conditionsMet;
     }
-
-    //TODO: Show dialog if conditions are not met
-    
 }
 
